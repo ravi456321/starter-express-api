@@ -1,0 +1,248 @@
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #dfd7d7, #f19c9c);
+}
+
+/* user promtp  for taking name at starting*/
+
+#my-prompt {
+    position: absolute;
+    display: none;
+    top: 35%;
+    left: 25%;
+    width: 50%;
+    height: 15%;
+    background-color: #90a262;
+    /* border:5px; */
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group input {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.form-group button {
+    padding: 10px;
+    margin: 10px 0px 10px 40%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+
+
+/* main .container */
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+}
+
+.chatterup-heading {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #5780ac;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 60px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+.right-container {
+    min-width: 20%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user p {
+    margin: 0;
+    font-weight: bold;
+}
+.typing{
+    padding-left: 10%;
+    color: green;
+}
+.online-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    margin-left: auto;
+}
+#count{
+    font-size: large;
+    color: #4CAF50;
+}
+
+#welcome{
+    font-size: large;
+    font-weight: 700;
+    color: rebeccapurple;
+}
+
+
+
+/* left .container */
+#message-list {
+    width: 50vw;
+    height: 65vh;
+    overflow: auto;
+    background-image: url('./public/bg.jpg');
+}
+
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 10px solid white;
+    border-radius: 5px;
+}
+
+/* send message form  */
+#message-form-div{
+    width: 100%;
+
+}
+#new-message{
+    display: flex;
+    align-items: center;
+    justify-content: space-between  ;
+    flex-direction: row;
+}
+#message-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#message-form img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#message-form input[type="text"] {
+    flex: 3;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e77977;
+}
+
+/* display message block */
+
+.message-block {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.message-block-user {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    width: 80%; /* Adjust as needed */
+    max-width: 100%;
+    margin-left: auto; 
+    margin-bottom: 10px;
+}
+
+
+.message-block img {
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message-block-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message-content {
+    float: right;
+    max-width: 90%;
+    min-width: 30%;
+    padding: 15px;
+    background-color: #DCF8C6;
+    border-radius: 15px;
+    position: relative;
+}
+
+.message-content .message {
+    font-size: 14px;
+    margin: 0;
+}
+
+.message-content .timestamp {
+    font-size: 10px;
+    color: #999;
+    position: absolute;
+    bottom: -21px;
+    right: 5px;
+}
+
+.message-content .name {
+    font-size: 13px;
+    color: #181313;
+    position: absolute;
+    bottom: 26px;
+    /* right: 6px; */
+}
