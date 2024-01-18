@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-server.use("/api-docs", 
+app.use("/api-docs", 
 swagger.serve, 
 swagger.setup(apiDocs))
 
