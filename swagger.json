@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": process.env.PORT
+            "url": "https://frail-life-jacket-frog.cyclic.app/"
         }
     ],
     "components": {
