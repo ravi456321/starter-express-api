@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management App</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include the SocketIOFile library -->
+
+
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <h1 class="chatterup-heading">ChatterUp</h1>
+    <div id="promt">
+        <form id="my-prompt">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <button type="submit">Enter</button>
+        </form>
+
+
+    </div>
+    <div id="container" class="container">
+        <div class="left-container">
+            <div id="message-list">
+                <!-- Tasks will be displayed here -->
+                <strong>Older Messages</strong>
+                <!-- HTML Structure -->
+                <!-- <div class="message-block">
+                    <img src="public/3.jpg" alt="pic">
+                    <div class="message-content">
+                        <p class="message">Hi everyone, I am Nero</p>
+                        <p class="timestamp">Sent 12:11:1</p>
+                    </div>
+                </div> -->
+
+            </div>
+            <div  id="message-form-div">
+                <!-- Create a form to add new tasks -->
+                <form id="message-form">
+                    <div id="new-message" style="width: 100%;">
+                        <img src="public/1.jpg" alt="profile">
+                        <input type="text" id="text-message" placeholder="Enter new messages" required>
+                        <button id="send-message-button" type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+        <div class="right-container">
+            <p id="welcome"></p>
+            <h2 id="count">Online</h2>
+            <div id="online-user">
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <script src="script.js"></script>
+    </footer>
+
+</body>
+
+</html>
