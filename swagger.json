@@ -1,0 +1,212 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "description": "API for Hospital Management System",
+        "title": "Hospital API"
+    },
+    "servers": [
+        {
+            "url": process.env.PORT
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "JWT": {
+                "in": "header",
+                "name": "Authorization",
+                "type": "apiKey"
+            }
+        }
+    },
+    "paths": {
+        "/doctors/register": {
+            "post": {
+                "tags": ["Doctors"],
+                "summary": "Register a doctor",
+                "description": "Allows a doctor to register with username and password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["username", "password"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Doctor registered successfully"
+                    }
+                }
+            }
+        },
+        "/doctors/login": {
+            "post": {
+                "tags": ["Doctors"],
+                "summary": "Doctor login",
+                "description": "Returns JWT token for authentication",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["username", "password"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "JWT token generated successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/patients/register": {
+            "post": {
+                "tags": ["Patients"],
+                "summary": "Register a patient",
+                "description": "Allows a patient to register with phone number",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "phoneNumber": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["phoneNumber"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Patient registered successfully"
+                    }
+                }
+            }
+        },
+        "/patients/{id}/create_report": {
+            "post": {
+                "tags": ["Reports"],
+                "summary": "Create a patient report",
+                "description": "Allows a doctor to create a report for a patient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Patient ID"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "createdByDoctor": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": ["Negative", "Travelled-Quarantine", "Symptoms-Quarantine", "Positive-Admit"]
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "required": ["createdByDoctor", "status", "date"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Patient report created successfully"
+                    }
+                }
+            }
+        },
+        "/patients/{id}/all_reports": {
+            "get": {
+                "tags": ["Reports"],
+                "summary": "Get all reports of a patient",
+                "description": "Lists all the reports of a patient from oldest to latest",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Patient ID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/reports/{status}": {
+            "get": {
+                "tags": ["Reports"],
+                "summary": "Get all reports by status",
+                "description": "Lists all reports filtered by a specific status",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Report status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        }
+    }
+}
