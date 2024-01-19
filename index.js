@@ -1,45 +1,45 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-const app = express();
+import express from "express";
+import userRouter from "./src/features/user/user.routes.js";
+import cookieParser from "cookie-parser";
 
 import swagger from 'swagger-ui-express';
 
-// In-app
-import DoctorController from './controllers/doctor.controller.js';
-import PatientController from './controllers/patient.controller.js';
-import ReportController from './controllers/report.controller.js';
-import jwtAuth from './middleware/auth.js';
+import { appLevelErrorHandler } from "./src/middlewares/errorHandler.js";
+
+import likeRouter from "./src/features/like/like.routes.js";
+import postRouter from "./src/features/post/post.routes.js";
+import friendRouter from "./src/features/friends/friend.routes.js"
+import commentRouter from "./src/features/comments/comment.routes.js"
 import apiDocs from './swagger.json' assert {type: 'json'};
 
-// Middleware
-app.use(express.json());
-app.use(cookieParser());
+import path from "path";
 
+dotenv.config();
+
+const app = express();
+//middleware
+app.use(express.static(path.resolve('public')));
+
+app.use(cookieParser());
+app.use(express.json());
 
 app.use("/api-docs", 
 swagger.serve, 
 swagger.setup(apiDocs))
 
-// Doctor Routes
-const doctorController=new DoctorController();
-const patientController=new PatientController();
-const reportController=new ReportController();
-app.post('/api/doctors/register', doctorController.register);
-app.post('/api/doctors/login', doctorController.login);
 
+//Routes
+app.use("/api/user", userRouter);
+app.use("/api/like", likeRouter);
+app.use("/api/post",postRouter);
+app.use("/api/friend",friendRouter);
+app.use("/api/comment",commentRouter);
 
-
-// Patient Routes
-app.post('/api/patients/register', jwtAuth,patientController.register);
-app.post('/api/patients/:id/create_report',jwtAuth, reportController.createReport);
-app.get('/api/patients/:id/all_reports', reportController.getAllReports);
-
-// Report Routes
-app.get('/api/reports/:status', reportController.getReportsByStatus);
-
-// Catch-all route for invalid URLs
 app.get('*', (req, res) => {
     res.send('Invalid URL');
 });
+
+
+app.use(appLevelErrorHandler);
 
 export default app;
