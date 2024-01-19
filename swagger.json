@@ -2,12 +2,12 @@
     "openapi": "3.0.0",
     "info": {
         "version": "1.0.0",
-        "description": "API for Hospital Management System",
-        "title": "Hospital API"
+        "description": "Social Media Backend REST-API that empowers users to post, comment, like, send friend Request and reset their passwords using OTP for enhanced security",
+        "title": "Social Media API"
     },
     "servers": [
         {
-            "url": "https://frail-life-jacket-frog.cyclic.app/"
+            "url": "https://frail-life-jacket-frog.cyclic.app/api"
         }
     ],
     "components": {
@@ -20,40 +20,46 @@
         }
     },
     "paths": {
-        "/doctors/register": {
+        "/user/register": {
             "post": {
                 "tags": ["Doctors"],
-                "summary": "Register a doctor",
-                "description": "Allows a doctor to register with username and password",
+                "summary": "Register user",
+                "description": "Allows a users to register with username and password",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "username": {
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "email": {
                                         "type": "string"
                                     },
                                     "password": {
                                         "type": "string"
+                                    },
+                                    "gender": {
+                                        "type": "ENUM"
                                     }
                                 },
-                                "required": ["username", "password"]
+                                "required": ["username", "password","gender"]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Doctor registered successfully"
+                        "description": "User registered successfully"
                     }
                 }
             }
         },
-        "/doctors/login": {
+        "/user/login": {
             "post": {
-                "tags": ["Doctors"],
-                "summary": "Doctor login",
+                "tags": ["Users"],
+                "summary": "User login",
                 "description": "Returns JWT token for authentication",
                 "requestBody": {
                     "content": {
@@ -61,14 +67,14 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "username": {
+                                    "email": {
                                         "type": "string"
                                     },
                                     "password": {
                                         "type": "string"
                                     }
                                 },
-                                "required": ["username", "password"]
+                                "required": ["email", "password"]
                             }
                         }
                     }
@@ -83,29 +89,87 @@
                 }
             }
         },
-        "/patients/register": {
+        "/user/logoutalldevices": {
             "post": {
-                "tags": ["Patients"],
-                "summary": "Register a patient",
-                "description": "Allows a patient to register with phone number",
+                "tags": ["Users"],
+                "summary": "User logoutalldevices",
+                "description": "Removes JWT token for authentication",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "phoneNumber": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
                                         "type": "string"
                                     }
                                 },
-                                "required": ["phoneNumber"]
+                                "required": ["email", "password"]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Patient registered successfully"
+                        "description": "Logout successful"
+                    },
+                    "401": {
+                        "description": "Unauthorized Login to continue"
+                    }
+                }
+            }
+        },
+        "/user/resetPass": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "User Reset pass",
+                "description": "Rest password using OTP to email id",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                },
+                                "required": [""]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OTP sent successfully to registered email if valid"
+                    },
+                    "401": {
+                        "description": "Unauthorized Login to continue"
+                    }
+                }
+            }
+        },
+        "/user/otp": {
+            "post": {
+                "tags": ["Reset OTP"],
+                "summary": "otp send",
+                "description": "Check email",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    
+                                },
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password Reset successful"
                     }
                 }
             }
