@@ -14,8 +14,6 @@ import apiDocs from './swagger.json' assert {type: 'json'};
 
 import path from "path";
 
-dotenv.config();
-
 const app = express();
 //middleware
 app.use(express.static(path.resolve('public')));
