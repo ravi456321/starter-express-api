@@ -22,7 +22,9 @@
     "paths": {
         "/user/register": {
             "post": {
-                "tags": ["Doctors"],
+                "tags": [
+                    "Users"
+                ],
                 "summary": "Register user",
                 "description": "Allows a users to register with username and password",
                 "requestBody": {
@@ -31,8 +33,8 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "name":{
-                                        "type":"string"
+                                    "name": {
+                                        "type": "string"
                                     },
                                     "email": {
                                         "type": "string"
@@ -44,7 +46,11 @@
                                         "type": "ENUM"
                                     }
                                 },
-                                "required": ["username", "password","gender"]
+                                "required": [
+                                    "username",
+                                    "password",
+                                    "gender"
+                                ]
                             }
                         }
                     }
@@ -58,7 +64,9 @@
         },
         "/user/login": {
             "post": {
-                "tags": ["Users"],
+                "tags": [
+                    "Users"
+                ],
                 "summary": "User login",
                 "description": "Returns JWT token for authentication",
                 "requestBody": {
@@ -74,7 +82,10 @@
                                         "type": "string"
                                     }
                                 },
-                                "required": ["email", "password"]
+                                "required": [
+                                    "email",
+                                    "password"
+                                ]
                             }
                         }
                     }
@@ -91,7 +102,9 @@
         },
         "/user/logoutalldevices": {
             "post": {
-                "tags": ["Users"],
+                "tags": [
+                    "Users"
+                ],
                 "summary": "User logoutalldevices",
                 "description": "Removes JWT token for authentication",
                 "requestBody": {
@@ -107,7 +120,10 @@
                                         "type": "string"
                                     }
                                 },
-                                "required": ["email", "password"]
+                                "required": [
+                                    "email",
+                                    "password"
+                                ]
                             }
                         }
                     }
@@ -124,7 +140,9 @@
         },
         "/user/resetPass": {
             "post": {
-                "tags": ["Users"],
+                "tags": [
+                    "Users"
+                ],
                 "summary": "User Reset pass",
                 "description": "Rest password using OTP to email id",
                 "requestBody": {
@@ -132,9 +150,10 @@
                         "application/json": {
                             "schema": {
                                 "type": "object",
-                                "properties": {
-                                },
-                                "required": [""]
+                                "properties": {},
+                                "required": [
+                                    ""
+                                ]
                             }
                         }
                     }
@@ -149,20 +168,26 @@
                 }
             }
         },
-        "/user/otp": {
+        "/post/newPost": {
             "post": {
-                "tags": ["Reset OTP"],
-                "summary": "otp send",
-                "description": "Check email",
+                "tags": [
+                    "new pot"
+                ],
+                "summary": "add imgurl caption",
+                "description": "Cdd img usrl aption",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    
+                                    "image": "http://www.abc.com",
+                                    "caption": "caption"
                                 },
-                                "required": []
+                                "required": [
+                                    "image",
+                                    "caption"
+                                ]
                             }
                         }
                     }
@@ -174,97 +199,138 @@
                 }
             }
         },
-        "/patients/{id}/create_report": {
+        "/like/like/{postId}": {
             "post": {
-                "tags": ["Reports"],
-                "summary": "Create a patient report",
-                "description": "Allows a doctor to create a report for a patient",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Patient ID"
+              "tags": [
+                "Like Post"
+              ],
+              "summary": "Like a Post",
+              "description": "Like a post using the postId",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "postId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "postId"
+                      ]
                     }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Post liked successfully"
+                },
+                "401": {
+                  "description": "Not a valid user"
+                }
+              }
+            }
+          },          
+        "/comment/comment/{postId}": {
+            "post": {
+              "tags": [
+                "Comments"
+              ],
+              "summary": "Add a comment to a Post",
+              "description": "Add a comment to a post using the postId",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "postId": {
+                          "type": "string"
+                        },
+                        "comment": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "postId",
+                        "comment"
+                      ]
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Comment added successfully"
+                }
+              }
+            }
+          },
+          
+        "/friend/sendRequest": {
+            "post": {
+              "tags": [
+                "Friend Requests"
+              ],
+              "summary": "Send a Friend Request",
+              "description": "Send a friend request to another user using their friendId",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "friendId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "friendId"
+                      ]
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Friend request sent successfully"
+                },
+                "401": {
+                  "description": "Unauthorized"
+                }
+              }
+            }
+          },
+          
+        "/friend/approveRequest": {
+            "post": {
+                "tags": [
+                    "Friend Requests"
                 ],
+                "summary": "Approve a Friend Request",
+                "description": "Approve a friend request using the friendId",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "createdByDoctor": {
+                                    "friendId": {
                                         "type": "string"
-                                    },
-                                    "status": {
-                                        "type": "string",
-                                        "enum": ["Negative", "Travelled-Quarantine", "Symptoms-Quarantine", "Positive-Admit"]
-                                    },
-                                    "date": {
-                                        "type": "string",
-                                        "format": "date"
                                     }
                                 },
-                                "required": ["createdByDoctor", "status", "date"]
+                                "required": [
+                                    "friendId"
+                                ]
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Patient report created successfully"
-                    }
-                }
-            }
-        },
-        "/patients/{id}/all_reports": {
-            "get": {
-                "tags": ["Reports"],
-                "summary": "Get all reports of a patient",
-                "description": "Lists all the reports of a patient from oldest to latest",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Patient ID"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
-        "/reports/{status}": {
-            "get": {
-                "tags": ["Reports"],
-                "summary": "Get all reports by status",
-                "description": "Lists all reports filtered by a specific status",
-                "parameters": [
-                    {
-                        "name": "status",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "Report status"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                        "description": "Friend request approved successfully"
                     },
                     "401": {
                         "description": "Unauthorized"
