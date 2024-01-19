@@ -171,7 +171,7 @@
         "/post/newPost": {
             "post": {
                 "tags": [
-                    "new pot"
+                    "Post"
                 ],
                 "summary": "add imgurl caption",
                 "description": "Cdd img usrl aption",
@@ -199,71 +199,217 @@
                 }
             }
         },
-        "/like/like/{postId}": {
+        "/post/addPost": {
             "post": {
-              "tags": [
-                "Like Post"
-              ],
-              "summary": "Like a Post",
-              "description": "Like a post using the postId",
+              "tags": ["Post"],
+              "summary": "Add a Post",
+              "description": "Add a new post with image URL and caption",
               "requestBody": {
                 "content": {
                   "application/json": {
                     "schema": {
                       "type": "object",
                       "properties": {
-                        "postId": {
-                          "type": "string"
-                        }
+                        "image": "http://www.abc.com",
+                        "caption": "caption"
                       },
-                      "required": [
-                        "postId"
-                      ]
+                      "required": ["image", "caption"]
                     }
                   }
                 }
               },
               "responses": {
                 "200": {
-                  "description": "Post liked successfully"
-                },
-                "401": {
-                  "description": "Not a valid user"
+                  "description": "Post added successfully"
                 }
               }
             }
-          },          
-        "/comment/comment/{postId}": {
-            "post": {
-              "tags": [
-                "Comments"
+          },
+          "/post/updatePost/{postId}": {
+            "put": {
+              "tags": ["Post"],
+              "summary": "Update a Post",
+              "description": "Update an existing post with image URL and caption",
+              "parameters": [
+                {
+                  "name": "postId",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "Post ID"
+                }
               ],
-              "summary": "Add a comment to a Post",
-              "description": "Add a comment to a post using the postId",
               "requestBody": {
                 "content": {
                   "application/json": {
                     "schema": {
                       "type": "object",
                       "properties": {
-                        "postId": {
-                          "type": "string"
-                        },
-                        "comment": {
-                          "type": "string"
-                        }
+                        "image": "http://www.abc.com",
+                        "caption": "caption"
                       },
-                      "required": [
-                        "postId",
-                        "comment"
-                      ]
+                      "required": ["image", "caption"]
                     }
                   }
                 }
               },
               "responses": {
                 "200": {
-                  "description": "Comment added successfully"
+                  "description": "Post updated successfully"
+                }
+              }
+            }
+          },
+          "/post/deletePost/{postId}": {
+            "delete": {
+              "tags": ["Post"],
+              "summary": "Delete a Post",
+              "description": "Delete an existing post",
+              "parameters": [
+                {
+                  "name": "postId",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "Post ID"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Post deleted successfully"
+                }
+              }
+            }
+          },
+          
+        "/like/like/{postId}": {
+            "post": {
+                "tags": [
+                    "Like"
+                ],
+                "summary": "Like a Post",
+                "description": "Like a post using the postId",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "postId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "postId"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Post liked successfully"
+                    },
+                    "401": {
+                        "description": "Not a valid user"
+                    }
+                }
+            }
+        },
+        "/like/like/{commentId}": {
+            "post": {
+                "tags": [
+                    "Like"
+                ],
+                "summary": "Like a Comment",
+                "description": "Like a comment using the commentId",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "commentId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "comment"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comment liked successfully"
+                    },
+                    "401": {
+                        "description": "Not a valid user"
+                    }
+                }
+            }
+        },
+        "/comment/comment/{postId}": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Add a comment to a Post",
+                "description": "Add a comment to a post using the postId",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "postId": {
+                                        "type": "string"
+                                    },
+                                    "comment": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "postId",
+                                    "comment"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comment added successfully"
+                    }
+                }
+            }
+        },
+        "/comment/delete/{commentId}": {
+            "delete": {
+              "tags": [
+                "Comments"
+              ],
+              "summary": "Delete a Comment",
+              "description": "Delete a comment using the commentId",
+              "parameters": [
+                {
+                  "name": "commentId",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "description": "Comment ID"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Comment deleted successfully"
                 }
               }
             }
@@ -271,39 +417,38 @@
           
         "/friend/sendRequest": {
             "post": {
-              "tags": [
-                "Friend Requests"
-              ],
-              "summary": "Send a Friend Request",
-              "description": "Send a friend request to another user using their friendId",
-              "requestBody": {
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "type": "object",
-                      "properties": {
-                        "friendId": {
-                          "type": "string"
+                "tags": [
+                    "Friend Requests"
+                ],
+                "summary": "Send a Friend Request",
+                "description": "Send a friend request to another user using their friendId",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "friendId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "friendId"
+                                ]
+                            }
                         }
-                      },
-                      "required": [
-                        "friendId"
-                      ]
                     }
-                  }
-                }
-              },
-              "responses": {
-                "200": {
-                  "description": "Friend request sent successfully"
                 },
-                "401": {
-                  "description": "Unauthorized"
+                "responses": {
+                    "200": {
+                        "description": "Friend request sent successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
                 }
-              }
             }
-          },
-          
+        },
         "/friend/approveRequest": {
             "post": {
                 "tags": [
